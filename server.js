@@ -41,6 +41,20 @@ try {
   console.error('Error copying generated image:', copyErr);
 }
 
+// Automatically copy the uploaded payment QR code image to public directory
+const qrSrc = 'C:/Users/nithi/.gemini/antigravity-ide/brain/4a709b9d-22c3-46e3-baf2-55fcee0fed31/media__1783506825577.png';
+const qrDest = path.join(__dirname, 'public', 'payment_qr.png');
+try {
+  if (fs.existsSync(qrSrc)) {
+    fs.copyFileSync(qrSrc, qrDest);
+    console.log('Successfully copied payment QR code to public/payment_qr.png');
+  } else {
+    console.warn('Source QR code not found at:', qrSrc);
+  }
+} catch (copyErr) {
+  console.error('Error copying payment QR code:', copyErr);
+}
+
 // Serve public static assets
 app.use(express.static(path.join(__dirname, 'public')));
 // Serve uploaded documents statically
