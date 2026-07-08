@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <meta name="description" content="Complete the registration wizard to secure your seat.">
+  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container" style="max-width: 1200px; padding: 2rem 1.5rem;">
+    
+    <!-- Top Header Area -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+      <div>
+        <p style="font-size: 0.72rem; font-weight: 800; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--font-title); margin-bottom: 0.25rem;">6-Month Online Exam Coaching</p>
+        <h1 style="font-size: 2.25rem; font-family: var(--font-title); font-weight: 800; color: var(--text-primary);">Registration form</h1>
+      </div>
+      <a href="/" class="btn-secondary-outline" style="border-radius: 100px; padding: 0.5rem 1.25rem; font-size: 0.85rem; font-weight: 600;">
+        <i class="fa-solid fa-arrow-left"></i> Back to overview
+      </a>
+    </div>
+
+    <!-- Main Registration Layout (Two Column) -->
+    <div class="registration-layout">
+      
+      <!-- Left Column (Sidebar) -->
+      <aside class="sidebar-col">
+        <!-- Steps List Card -->
+        <div class="glass-card sidebar-card" style="padding: 1.5rem 1.25rem; margin-bottom: 1.5rem;">
+          <p style="font-size: 0.68rem; font-weight: 800; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem;">Registration</p>
+          <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.5rem;" id="sidebar-step-indicator">Step 1 of 8</h3>
+          
+          <!-- Vertical Steps List -->
+          <ul class="vertical-steps-list">
+            <li class="step-item active" data-step="1">
+              <span class="step-circle">1</span>
+              <span class="step-text">Student Details</span>
+            </li>
+            <li class="step-item" data-step="2">
+              <span class="step-circle">2</span>
+              <span class="step-text">Academic Details</span>
+            </li>
+            <li class="step-item" data-step="3">
+              <span class="step-circle">3</span>
+              <span class="step-text">Package Selection</span>
+            </li>
+            <li class="step-item" data-step="4">
+              <span class="step-circle">4</span>
+              <span class="step-text">Learning Details</span>
+            </li>
+            <li class="step-item" data-step="5">
+              <span class="step-circle">5</span>
+              <span class="step-text">Payment</span>
+            </li>
+            <li class="step-item" data-step="6">
+              <span class="step-circle">6</span>
+              <span class="step-text">Documents</span>
+            </li>
+            <li class="step-item" data-step="7">
+              <span class="step-circle">7</span>
+              <span class="step-text">Terms</span>
+            </li>
+            <li class="step-item" data-step="8">
+              <span class="step-circle">8</span>
+              <span class="step-text">Agreement</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Help Card -->
+        <div class="glass-card sidebar-card" style="padding: 1.5rem; background: #f8fafc; border-color: var(--border-color);">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; font-family: var(--font-title);">Need help?</h4>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.55;">
+            Your seat is only reserved after payment verification. Keep your marks card and payment screenshot ready before you start.
+          </p>
+        </div>
+      </aside>
+
+      <!-- Right Column (Main Form Card) -->
+      <main class="glass-card main-form-card">
+        <form id="registration-form" novalidate enctype="multipart/form-data">
+          
+          <!-- SECTION 1: Student Details -->
+          <div class="step-content active" data-step="1">
+            <h2 class="step-title">Student details</h2>
+            <p class="step-subtitle">Tell us who you are and how we can reach you.</p>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="fullName">Full Name <span style="color:var(--color-rejected)">*</span></label>
+                <input type="text" id="fullName" name="fullName" required placeholder="As per marks card">
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address <span style="color:var(--color-rejected)">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="you@example.com">
+              </div>
+              <div class="form-group">
+                <label for="mobile">Mobile Number <span style="color:var(--color-rejected)">*</span></label>
+                <input type="tel" id="mobile" name="mobile" required placeholder="10-digit mobile">
+              </div>
+              <div class="form-group">
+                <label for="whatsapp">WhatsApp Number <span style="color:var(--color-rejected)">*</span></label>
+                <input type="tel" id="whatsapp" name="whatsapp" required placeholder="10-digit WhatsApp">
+              </div>
+              <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob">
+              </div>
+              <div class="form-group">
+                <label>Gender</label>
+                <div class="radio-card-grid" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                  <label class="radio-card pill-radio">
+                    <input type="radio" name="gender" value="Male" checked>
+                    <span>Male</span>
+                  </label>
+                  <label class="radio-card pill-radio">
+                    <input type="radio" name="gender" value="Female">
+                    <span>Female</span>
+                  </label>
+                  <label class="radio-card pill-radio">
+                    <input type="radio" name="gender" value="Prefer not to say">
+                    <span>Prefer not to say</span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="collegeName">College Name <span style="color:var(--color-rejected)">*</span></label>
+                <input type="text" id="collegeName" name="collegeName" required>
+              </div>
+              <div class="form-group">
+                <label for="university">University <span style="color:var(--color-rejected)">*</span></label>
+                <input type="text" id="university" name="university" required>
+              </div>
+              <div class="form-group">
+                <label for="branch">Branch <span style="color:var(--color-rejected)">*</span></label>
+                <input type="text" id="branch" name="branch" required placeholder="e.g. Computer Science">
+              </div>
+              <div class="form-group">
+                <label for="currentSemester">Current Semester <span style="color:var(--color-rejected)">*</span></label>
+                <select id="currentSemester" name="currentSemester" required>
+                  <option value="" disabled selected>Select semester</option>
+                  <option value="1st">1st Semester</option>
+                  <option value="2nd">2nd Semester</option>
+                  <option value="3rd">3rd Semester</option>
+                  <option value="4th">4th Semester</option>
+                  <option value="5th">5th Semester</option>
+                  <option value="6th">6th Semester</option>
+                  <option value="7th">7th Semester</option>
+                  <option value="8th">8th Semester</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="usn">USN / Registration Number <span style="color:var(--color-rejected)">*</span></label>
+                <input type="text" id="usn" name="usn" required>
+              </div>
+              <div class="form-group">
+                <label for="currentCity">Current City</label>
+                <input type="text" id="currentCity" name="currentCity">
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 2: Academic Details -->
+          <div class="step-content" data-step="2">
+            <h2 class="step-title">Section 2 – Academic Details</h2>
+            <p class="step-subtitle">Provide details about your backlogs or subjects that are currently not cleared.</p>
+            
+            <div class="form-group" style="margin-bottom: 2rem;">
+              <label for="subjectsNotClearedCount">How many subjects are currently not cleared? <span style="color:var(--color-rejected)">*</span></label>
+              <select id="subjectsNotClearedCount" name="subjectsNotClearedCount" required style="max-width: 300px;">
+                <option value="4" selected>4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="More than 10">More than 10</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom: 1rem; display:flex; justify-content: space-between; align-items: center;">
+              <h3 style="font-size: 1.15rem; color: var(--text-primary); font-family: var(--font-title); font-weight: 700;">List of Subjects Currently Not Cleared:</h3>
+              <button type="button" class="btn-secondary-outline" id="btn-add-subject" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: 100px;">
+                <i class="fa-solid fa-plus"></i> Add Subject
+              </button>
+            </div>
+
+            <!-- Interactive Subjects Table List -->
+            <div style="overflow-x: auto; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: #f8fafc; margin-bottom: 1rem;">
+              <table id="subjects-table" style="min-width: 700px;">
+                <thead>
+                  <tr>
+                    <th style="width: 18%;">Sem</th>
+                    <th style="width: 20%;">Sub Code</th>
+                    <th style="width: 32%;">Subject Name</th>
+                    <th style="width: 13%;">Attempts</th>
+                    <th style="width: 13%;">Appearing?</th>
+                    <th style="width: 4%;"></th>
+                  </tr>
+                </thead>
+                <tbody id="subjects-tbody">
+                  <tr class="subject-row">
+                    <td>
+                      <select class="sub-sem" required>
+                        <option value="1">1st Sem</option>
+                        <option value="2">2nd Sem</option>
+                        <option value="3">3rd Sem</option>
+                        <option value="4">4th Sem</option>
+                        <option value="5">5th Sem</option>
+                        <option value="6">6th Sem</option>
+                        <option value="7">7th Sem</option>
+                        <option value="8">8th Sem</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input type="text" class="sub-code" required placeholder="e.g. 21CS31">
+                    </td>
+                    <td>
+                      <input type="text" class="sub-name" required placeholder="e.g. Mathematics-III">
+                    </td>
+                    <td>
+                      <input type="number" class="sub-attempts" required min="1" value="1">
+                    </td>
+                    <td>
+                      <select class="sub-appearing">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button type="button" class="btn-remove-row">
+                        <i class="fa-solid fa-trash-can"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <p style="font-size: 0.8rem; color: var(--text-muted);"><i class="fa-solid fa-info-circle"></i> Add as many rows as needed. These will help us assign the correct subject mentors.</p>
+          </div>
+
+          <!-- SECTION 3: Select Your Coaching Package -->
+          <div class="step-content" data-step="3">
+            <h2 class="step-title">Section 3 – Select Your Coaching Package</h2>
+            <p class="step-subtitle">Select the coaching support tier matching your subjects count. <span style="color:var(--color-rejected)">*</span></p>
+            
+            <input type="hidden" id="packageName" name="packageName" value="GO - ₹14,999">
+            
+            <div class="package-grid" style="grid-template-columns: repeat(2, 1fr);">
+              <!-- GO Card -->
+              <div class="package-card selected" data-package="GO - ₹14,999" style="padding: 1.5rem;">
+                <div class="package-name" style="color: #10b981;">🟢 GO PACKAGE</div>
+                <div class="package-price">₹14,999</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: -0.5rem; margin-bottom: 1rem; font-weight: 600;">Coverage: Up to 4 Subjects</div>
+                <ul class="package-features">
+                  <li>6 Months Live Online Classes</li>
+                  <li>Digital Study Notes</li>
+                  <li>Weekly Assignments</li>
+                  <li>Previous Year Question Discussions</li>
+                  <li>Basic Doubt Support</li>
+                </ul>
+              </div>
+              
+              <!-- PLUS Card -->
+              <div class="package-card" data-package="PLUS - ₹21,999" style="padding: 1.5rem;">
+                <div class="package-name" style="color: #3b82f6;">🔵 PLUS PACKAGE</div>
+                <div class="package-price">₹21,999</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: -0.5rem; margin-bottom: 1rem; font-weight: 600;">Coverage: Up to 8 Subjects</div>
+                <ul class="package-features">
+                  <li><strong>Everything in GO plus:</strong></li>
+                  <li>Recorded Classes</li>
+                  <li>Weekly Mock Tests</li>
+                  <li>Priority Doubt Support</li>
+                  <li>Progress Tracking</li>
+                  <li>Revision Sessions</li>
+                </ul>
+              </div>
+              
+              <!-- PREMIUM Card -->
+              <div class="package-card" data-package="PREMIUM - ₹29,999" style="padding: 1.5rem;">
+                <div class="package-name" style="color: #a855f7;">🟣 PREMIUM PACKAGE</div>
+                <div class="package-price">₹29,999</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: -0.5rem; margin-bottom: 1rem; font-weight: 600;">Coverage: Up to 12 Subjects</div>
+                <ul class="package-features">
+                  <li><strong>Everything in PLUS plus:</strong></li>
+                  <li>One-to-One Mentor Guidance</li>
+                  <li>Personalized Study Plan</li>
+                  <li>Weekly Performance Reviews</li>
+                  <li>Premium Notes & Test Series</li>
+                  <li>Exam Strategy Sessions</li>
+                </ul>
+              </div>
+              
+              <!-- ELITE Card -->
+              <div class="package-card" data-package="ELITE - ₹39,999" style="padding: 1.5rem;">
+                <div class="package-badge" style="background: var(--primary)">Ultimate</div>
+                <div class="package-name" style="color: #eab308;">👑 ELITE PACKAGE</div>
+                <div class="package-price">₹39,999</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: -0.5rem; margin-bottom: 1rem; font-weight: 600;">Coverage: Unlimited Subjects</div>
+                <ul class="package-features">
+                  <li><strong>Everything in PREMIUM plus:</strong></li>
+                  <li>Dedicated Personal Mentor</li>
+                  <li>Unlimited Doubt Support (during support hours)</li>
+                  <li>Daily Progress Monitoring</li>
+                  <li>Complete Test Series</li>
+                  <li>Personalized Academic Guidance</li>
+                  <li>Special Revision Sessions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 4: Online Learning Details -->
+          <div class="step-content" data-step="4">
+            <h2 class="step-title">Section 4 – Online Learning Details</h2>
+            <p class="step-subtitle">Provide information about your online learning environment.</p>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Device You Will Use</label>
+                <div class="radio-card-grid" style="grid-template-columns: repeat(3, 1fr);">
+                  <label class="radio-card" style="padding: 0.6rem 0.8rem; font-size: 0.85rem;">
+                    <input type="radio" name="device" value="Mobile">
+                    <span>Mobile</span>
+                  </label>
+                  <label class="radio-card" style="padding: 0.6rem 0.8rem; font-size: 0.85rem;">
+                    <input type="radio" name="device" value="Laptop" checked>
+                    <span>Laptop</span>
+                  </label>
+                  <label class="radio-card" style="padding: 0.6rem 0.8rem; font-size: 0.85rem;">
+                    <input type="radio" name="device" value="Desktop">
+                    <span>Desktop</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Internet Connection</label>
+                <div class="radio-card-grid">
+                  <label class="radio-card" style="padding: 0.6rem 0.8rem; font-size: 0.85rem;">
+                    <input type="radio" name="internet" value="Wi-Fi" checked>
+                    <span>Wi-Fi</span>
+                  </label>
+                  <label class="radio-card" style="padding: 0.6rem 0.8rem; font-size: 0.85rem;">
+                    <input type="radio" name="internet" value="Mobile Data">
+                    <span>Mobile Data</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Preferred Batch</label>
+                <div class="radio-card-grid" style="grid-template-columns: repeat(3, 1fr);">
+                  <label class="radio-card" style="padding: 0.6rem 0.8rem; font-size: 0.85rem;">
+                    <input type="radio" name="preferredBatch" value="Morning">
+                    <span>Morning</span>
+                  </label>
+                  <label class="radio-card" style="padding: 0.6rem 0.8rem; font-size: 0.85rem;">
+                    <input type="radio" name="preferredBatch" value="Evening" checked>
+                    <span>Evening</span>
+                  </label>
+                  <label class="radio-card" style="padding: 0.6rem 0.8rem; font-size: 0.85rem;">
+                    <input type="radio" name="preferredBatch" value="Weekend">
+                    <span>Weekend</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 5: Payment Details -->
+          <div class="step-content" data-step="5">
+            <h2 class="step-title">Section 5 – Payment Details</h2>
+            <p class="step-subtitle">Pay the compulsory refundable ₹10,000 deposit to reserve your seat.</p>
+            
+            <div class="payment-box">
+              <div style="text-align: center;">
+                <h3 style="font-size: 1.10rem; color: var(--text-primary);">Seat Reservation Fee: <span style="color: var(--primary);">₹10,000</span> (Compulsory & Refundable)</h3>
+                <p style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.25rem;">Adjusted towards your package fee after verification.</p>
+              </div>
+
+              <div class="form-grid" style="width: 100%; max-width: 600px;">
+                <div class="form-group">
+                  <label for="remainingFeeOption">Remaining Fee Payment Option <span style="color:var(--color-rejected)">*</span></label>
+                  <select id="remainingFeeOption" name="remainingFeeOption" required>
+                    <option value="Full Payment" selected>Full Payment</option>
+                    <option value="EMI – 2 Months">EMI – 2 Months</option>
+                    <option value="EMI – 3 Months">EMI – 3 Months</option>
+                    <option value="EMI – 4 Months">EMI – 4 Months</option>
+                    <option value="EMI – 5 Months">EMI – 5 Months</option>
+                    <option value="EMI – 6 Months">EMI – 6 Months</option>
+                  </select>
+                  <div id="emi-policy-alert" style="display: none; margin-top: 0.5rem; background: #fff8e1; border: 1px solid #ffe082; padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.78rem; color: #b06000; line-height: 1.4;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>EMI Policy:</strong> Every EMI should be paid on the <strong>30th of every month</strong> without fail. Failure of payment adds an additional penalty of <strong>₹50 each day</strong>.
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Registration Fee Status <span style="color:var(--color-rejected)">*</span></label>
+                  <div class="radio-card-grid">
+                    <label class="radio-card" style="padding: 0.6rem 0.8rem;">
+                      <input type="radio" name="registrationFeeStatus" value="Paid" checked>
+                      <span>Paid</span>
+                    </label>
+                    <label class="radio-card" style="padding: 0.6rem 0.8rem;">
+                      <input type="radio" name="registrationFeeStatus" value="Not Yet Paid">
+                      <span>Not Yet Paid</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="amountPaid">Amount Paid (INR)</label>
+                  <input type="number" id="amountPaid" name="amountPaid" placeholder="e.g. 10000" value="10000">
+                </div>
+
+                <div class="form-group">
+                  <label for="transactionId">Transaction ID / UTR Number</label>
+                  <input type="text" id="transactionId" name="transactionId" placeholder="e.g. UTR1783928172">
+                </div>
+
+                <!-- Payment Screenshot Uploader -->
+                <div class="form-group full-width">
+                  <label>Upload Payment Screenshot <span style="color:var(--color-rejected)">*</span></label>
+                  <div class="file-upload-wrapper" id="wrapper-paymentScreenshot">
+                    <i class="fa-solid fa-cloud-arrow-up file-upload-icon"></i>
+                    <p class="file-upload-text">Drag & drop or <span>Browse Payment Receipt Screenshot</span></p>
+                    <input type="file" name="paymentScreenshot" id="paymentScreenshot" class="file-upload-input" accept="image/*,.pdf" required>
+                  </div>
+                  <div class="file-preview" id="preview-paymentScreenshot" style="display: none;">
+                    <span class="file-preview-name">receipt.png</span>
+                    <button type="button" class="file-preview-remove" onclick="removeUploadedFile('paymentScreenshot')">&times;</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 6: Documents -->
+          <div class="step-content" data-step="6">
+            <h2 class="step-title">Section 6 – Documents</h2>
+            <p class="step-subtitle">Upload your academic credentials for verification by the administration.</p>
+            
+            <div class="form-grid">
+              <!-- Marks Card -->
+              <div class="form-group">
+                <label>Upload Latest Marks Card <span style="color:var(--color-rejected)">*</span></label>
+                <div class="file-upload-wrapper" id="wrapper-marksCard">
+                  <i class="fa-solid fa-cloud-arrow-up file-upload-icon"></i>
+                  <p class="file-upload-text">Drag & drop or <span>Browse latest marks sheet</span></p>
+                  <input type="file" name="marksCard" id="marksCard" class="file-upload-input" accept="image/*,.pdf" required>
+                </div>
+                <div class="file-preview" id="preview-marksCard" style="display: none;">
+                  <span class="file-preview-name">marks.jpg</span>
+                  <button type="button" class="file-preview-remove" onclick="removeUploadedFile('marksCard')">&times;</button>
+                </div>
+              </div>
+
+              <!-- Student ID Card -->
+              <div class="form-group">
+                <label>Upload Student ID Card (Optional)</label>
+                <div class="file-upload-wrapper" id="wrapper-studentIdCard">
+                  <i class="fa-solid fa-cloud-arrow-up file-upload-icon"></i>
+                  <p class="file-upload-text">Drag & drop or <span>Browse student ID</span></p>
+                  <input type="file" name="studentIdCard" id="studentIdCard" class="file-upload-input" accept="image/*,.pdf">
+                </div>
+                <div class="file-preview" id="preview-studentIdCard" style="display: none;">
+                  <span class="file-preview-name">id.jpg</span>
+                  <button type="button" class="file-preview-remove" onclick="removeUploadedFile('studentIdCard')">&times;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 7: Terms & Conditions -->
+          <div class="step-content" data-step="7">
+            <h2 class="step-title">Section 7 – Terms & Conditions</h2>
+            <p class="step-subtitle">Please read the coaching program policies carefully before proceeding.</p>
+            
+            <div style="background: #ffffff; border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius-md); max-height: 350px; overflow-y: auto; font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.5rem;" id="terms-scrollbox">
+              <h4 style="color: var(--text-primary);">6-Month Coaching Terms & Acknowledgment:</h4>
+              <p>1. This is a <strong>6-Month Online Coaching Program</strong>.</p>
+              <p>2. All classes are conducted <strong>online only</strong>.</p>
+              <p>3. Admission is confirmed only after payment verification.</p>
+              <p>4. A <strong>₹10,000 refundable registration fee</strong> is compulsory to reserve your seat and will be adjusted towards the selected package fee after admission confirmation.</p>
+              <p>5. Coaching provides academic guidance and support only.</p>
+              <p>6. <strong>Passing any subject or examination is not guaranteed.</strong></p>
+              <p>7. Students must attend classes regularly and complete assignments.</p>
+              <p>8. <strong>Self-study is compulsory.</strong> Coaching alone cannot ensure success.</p>
+              <p>9. The institute is <strong>not responsible</strong> for:</p>
+              <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                <li>Failure in any subject or examination.</li>
+                <li>Poor academic performance.</li>
+                <li>Lack of self-study.</li>
+                <li>Failure to obtain required internal assessment marks.</li>
+                <li>Low attendance in college.</li>
+                <li>Missing assignments or records.</li>
+                <li>Detention by the college or university.</li>
+                <li>Failure to register for university examinations.</li>
+                <li>Failure to pay university examination fees.</li>
+                <li>Downloading hall tickets.</li>
+                <li>Being absent from examinations.</li>
+                <li>Internet, electricity, or device issues on the student's side.</li>
+              </ul>
+              <p>10. Students are responsible for attending every online class and every university examination.</p>
+              <p>11. No replacement classes will be provided for classes missed by the student.</p>
+              <p>12. Study materials are for enrolled students only and must not be copied, recorded, shared, or distributed without written permission.</p>
+              <p>13. Students are expected to maintain discipline and respectful behaviour during online classes.</p>
+              <p>14. <strong>No refund of coaching fees will be provided after classes commence</strong>, regardless of attendance, withdrawal, examination results, or personal reasons, except where required by applicable law.</p>
+              <p>15. Seats are limited and will be allotted on a First-Come, First-Served basis.</p>
+              <p>16. <strong>EMI Payment Schedule & Penalty Policy:</strong> Every EMI should be paid on the <strong>30th of every month</strong> without fail. Failure of payment adds an additional penalty of <strong>₹50 each day</strong>.</p>
+            </div>
+            
+            <p style="font-size: 0.85rem; color: var(--text-secondary); text-align: center;"><i class="fa-solid fa-circle-info"></i> By clicking next, you confirm that you have read and agreed to these terms.</p>
+          </div>
+
+          <!-- SECTION 8: Student Agreement -->
+          <div class="step-content" data-step="8">
+            <h2 class="step-title">Section 8 – Student Agreement</h2>
+            <p class="step-subtitle">Confirm your credentials and submit your electronic signature agreement.</p>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="candidateName">Candidate Name <span style="color:var(--color-rejected)">*</span></label>
+                <input type="text" id="candidateName" name="candidateName" required placeholder="Type your full name">
+              </div>
+
+              <div class="form-group">
+                <label for="agreementDate">Date <span style="color:var(--color-rejected)">*</span></label>
+                <input type="date" id="agreementDate" name="agreementDate" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="signature">Candidate Digital Signature (Type your full name as signature) <span style="color:var(--color-rejected)">*</span></label>
+                <input type="text" id="signature" name="signature" required placeholder="e.g. John Doe" style="font-family: 'Outfit', cursive, sans-serif; font-size: 1.25rem; letter-spacing: 0.05em; border-bottom: 2px solid var(--primary);">
+              </div>
+
+              <div class="form-group full-width" style="margin-top: 1rem;">
+                <label class="radio-card" style="padding: 1rem; align-items: flex-start; cursor: pointer;">
+                  <input type="checkbox" id="signatureAgreeCheckbox" required style="accent-color: var(--primary); width:20px; height:20px; margin-top: 0.15rem;">
+                  <span style="font-size: 0.9rem; line-height: 1.4;"><strong>I confirm that my typed name serves as my digital signature and that I agree to all the Terms & Conditions of this coaching program. <span style="color:var(--color-rejected)">*</span></strong></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Navigation Footer -->
+          <div class="wizard-footer" id="wizard-navigation">
+            <button type="button" class="btn-secondary-outline" id="btn-back" disabled style="border-radius: 100px; padding: 0.65rem 1.8rem;">
+              <i class="fa-solid fa-arrow-left"></i> Previous
+            </button>
+            <button type="button" class="btn-primary" id="btn-next" style="border-radius: 100px; padding: 0.65rem 1.8rem;">
+              Next <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Submission Success Screen -->
+        <div class="success-screen" id="success-screen" style="display: none;">
+          <div class="success-icon" style="background: var(--color-approved-glow); border-color: var(--color-approved); color: var(--color-approved);">
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <h2 style="font-size: 2.25rem;">🎉 Thank You!</h2>
+          <p style="color: var(--text-secondary); max-width: 550px; margin: 0 auto; line-height: 1.6;">Your registration has been received successfully. Our team will verify your application and payment screenshot shortly.</p>
+          
+          <div style="background: var(--bg-input); padding: 1.25rem 2rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-top: 1rem; text-align: center;">
+            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Application Reference ID</p>
+            <h3 id="success-student-id" class="gradient-text" style="font-size: 1.6rem; font-family: monospace; letter-spacing: 0.05em; margin-top: 0.25rem;">COACH-82910-1829</h3>
+          </div>
+
+          <div style="text-align: left; width: 100%; max-width: 480px; margin: 1.75rem auto 0 auto; background: #f8fafc; border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius-md);">
+            <h4 style="margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-primary); font-family: var(--font-title); font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Once confirmed, you will receive:</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem; color: var(--text-secondary);">
+              <li style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-solid fa-circle-check" style="color: var(--color-approved); font-size: 1.05rem;"></i>
+                <span>Admission Confirmation</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-solid fa-circle-check" style="color: var(--color-approved); font-size: 1.05rem;"></i>
+                <span>Batch Allocation</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-solid fa-circle-check" style="color: var(--color-approved); font-size: 1.05rem;"></i>
+                <span>Google Meet Link</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-solid fa-circle-check" style="color: var(--color-approved); font-size: 1.05rem;"></i>
+                <span>Study Materials & Class Schedule</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-solid fa-circle-check" style="color: var(--color-approved); font-size: 1.05rem;"></i>
+                <span>Mentor Contact Details</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: center; width: 100%;">
+            <button type="button" class="btn-primary" onclick="window.location.reload()">
+              <i class="fa-solid fa-arrow-rotate-right"></i> Register Another Student
+            </button>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js?v=2"></script>
+</body>
+</html>

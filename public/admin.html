@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subject Mastery Hub</title>
+  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container" style="max-width: 1300px;">
+    <!-- Header -->
+    <header>
+      <div class="logo" style="cursor: default; user-select: none;">
+        <span class="logo-dot"></span>
+        Admin Dashboard
+      </div>
+      <a href="/" class="btn-secondary-outline">
+        Student Registration Form
+      </a>
+    </header>
+
+    <!-- Admin Content -->
+    <main>
+      
+      <!-- Stats Dashboard Row -->
+      <section class="admin-stats-grid">
+        <!-- Stat Total -->
+        <div class="glass-card stat-card">
+          <div class="stat-header">
+            <span>TOTAL APPLICATIONS</span>
+            <i class="fa-solid fa-users stat-icon" style="color: var(--primary);"></i>
+          </div>
+          <div class="stat-val" id="stat-total">0</div>
+        </div>
+
+        <!-- Stat Pending -->
+        <div class="glass-card stat-card" style="border-color: rgba(245, 158, 11, 0.2);">
+          <div class="stat-header">
+            <span>PENDING VERIFICATION</span>
+            <i class="fa-solid fa-hourglass-half stat-icon" style="color: var(--color-pending);"></i>
+          </div>
+          <div class="stat-val" style="color: var(--color-pending);" id="stat-pending">0</div>
+        </div>
+
+        <!-- Stat Approved -->
+        <div class="glass-card stat-card" style="border-color: rgba(16, 185, 129, 0.2);">
+          <div class="stat-header">
+            <span>APPROVED</span>
+            <i class="fa-solid fa-circle-check stat-icon" style="color: var(--color-approved);"></i>
+          </div>
+          <div class="stat-val" style="color: var(--color-approved);" id="stat-approved">0</div>
+        </div>
+
+        <!-- Stat Rejected/Hold -->
+        <div class="glass-card stat-card" style="border-color: rgba(239, 68, 68, 0.2);">
+          <div class="stat-header">
+            <span>REJECTED / HOLD</span>
+            <i class="fa-solid fa-circle-xmark stat-icon" style="color: var(--color-rejected);"></i>
+          </div>
+          <div class="stat-val" style="color: var(--color-rejected);" id="stat-rejected">0</div>
+        </div>
+      </section>
+
+      <!-- Search & Filters Toolbar -->
+      <section class="glass-card" style="padding: 1.25rem; margin-bottom: 1.5rem; border-radius: var(--radius-md);">
+        <div class="admin-controls">
+          <!-- Search input -->
+          <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="admin-search" class="search-input" placeholder="Search by name, USN, college, or email...">
+          </div>
+
+          <!-- Status Filter -->
+          <select id="filter-status" class="filter-select">
+            <option value="All">All Statuses</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Hold">On Hold</option>
+          </select>
+
+          <!-- Branch Filter -->
+          <select id="filter-branch" class="filter-select">
+            <option value="All">All Branches</option>
+            <!-- JavaScript will populate other branches dynamically -->
+          </select>
+
+          <!-- Package Filter -->
+          <select id="filter-package" class="filter-select">
+            <option value="All">All Packages</option>
+            <option value="GO">GO Package</option>
+            <option value="PLUS">PLUS Package</option>
+            <option value="PREMIUM">PREMIUM Package</option>
+            <option value="ELITE">ELITE Package</option>
+          </select>
+
+          <!-- Refresh Button -->
+          <button type="button" class="btn-secondary-outline" id="btn-refresh" style="height: 42px;">
+            <i class="fa-solid fa-arrows-rotate"></i> Refresh
+          </button>
+        </div>
+      </section>
+
+      <!-- Table Section -->
+      <section class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Reg ID</th>
+              <th>Student Name</th>
+              <th>College & Branch</th>
+              <th>Package</th>
+              <th>Fee Status</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-tbody">
+            <!-- Loading message or rows populated by admin.js -->
+            <tr>
+              <td colspan="8" style="text-align: center; color: var(--text-secondary); padding: 3rem;">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                <p>Fetching student registrations...</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+
+    <!-- Student Details Modal -->
+    <div class="modal-overlay" id="student-modal">
+      <div class="modal-container">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div>
+            <h2 id="modal-student-name" style="font-size: 1.5rem;">Student Name</h2>
+            <p id="modal-student-id" style="color: var(--primary); font-family: monospace; font-size: 0.85rem;">COACH-829018-9102</p>
+          </div>
+          <button type="button" class="modal-close" id="modal-close-btn">&times;</button>
+        </div>
+
+        <!-- Modal Body (Two Column Layout: Left Details, Right Document Check) -->
+        <div class="modal-body">
+          
+          <!-- Column 1: Info Summaries -->
+          <div class="modal-info-col">
+            
+            <!-- SECTION 1: Personal Details -->
+            <div>
+              <h3 class="info-section-title">Section 1: Student Details</h3>
+              <div class="info-grid-2">
+                <div class="info-item">
+                  <span class="info-label">Full Name</span>
+                  <span class="info-value" id="val-fullName">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Email</span>
+                  <span class="info-value" id="val-email">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Mobile</span>
+                  <span class="info-value" id="val-mobile">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">WhatsApp</span>
+                  <span class="info-value" id="val-whatsapp">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">College</span>
+                  <span class="info-value" id="val-collegeName">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">University</span>
+                  <span class="info-value" id="val-university">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Branch & Sem</span>
+                  <span class="info-value" id="val-branch-sem">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">USN / Reg No</span>
+                  <span class="info-value" id="val-usn">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">DOB & Gender</span>
+                  <span class="info-value" id="val-dob-gender">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">City</span>
+                  <span class="info-value" id="val-city">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 2: Academic Details -->
+            <div>
+              <h3 class="info-section-title">Section 2: Academic Backlogs</h3>
+              <div class="info-item" style="margin-bottom: 0.75rem;">
+                <span class="info-label">Subjects Currently Not Cleared</span>
+                <span class="info-value" id="val-backlogsCount">-</span>
+              </div>
+              
+              <!-- Backlog Subjects Mini-Table -->
+              <div style="border: 1px solid var(--border-color); border-radius: var(--radius-sm); overflow: hidden; background: #ffffff;">
+                <table style="font-size: 0.8rem;" id="modal-subjects-table">
+                  <thead>
+                    <tr style="background: rgba(255, 255, 255, 0.01);">
+                      <th style="padding: 0.5rem; font-size: 0.75rem;">Sem</th>
+                      <th style="padding: 0.5rem; font-size: 0.75rem;">Code</th>
+                      <th style="padding: 0.5rem; font-size: 0.75rem;">Name</th>
+                      <th style="padding: 0.5rem; font-size: 0.75rem;">Attempts</th>
+                      <th style="padding: 0.5rem; font-size: 0.75rem;">Appearing?</th>
+                    </tr>
+                  </thead>
+                  <tbody id="modal-subjects-tbody">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- SECTION 3, 4, 5 Info Grid -->
+            <div class="info-grid-2">
+              <div>
+                <h3 class="info-section-title">Section 3: Package</h3>
+                <div class="info-item">
+                  <span class="info-label">Coaching Tier</span>
+                  <span class="info-value" id="val-package" style="color: var(--secondary); font-weight: 700;">-</span>
+                </div>
+              </div>
+              <div>
+                <h3 class="info-section-title">Section 4: Learning</h3>
+                <div class="info-item">
+                  <span class="info-label">Device & Net</span>
+                  <span class="info-value" id="val-device-net">-</span>
+                </div>
+                <div class="info-item" style="margin-top: 0.25rem;">
+                  <span class="info-label">Batch Option</span>
+                  <span class="info-value" id="val-batch">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 5: Payment Info -->
+            <div>
+              <h3 class="info-section-title">Section 5: Payment Details</h3>
+              <div class="info-grid-2">
+                <div class="info-item">
+                  <span class="info-label">Fee Status</span>
+                  <span class="info-value" id="val-feeStatus">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">EMI / Option</span>
+                  <span class="info-value" id="val-emiOption">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Transaction ID / UTR</span>
+                  <span class="info-value" id="val-transactionId" style="font-family: monospace;">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Amount Paid</span>
+                  <span class="info-value" id="val-amountPaid">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 8: Student Agreement Signature -->
+            <div>
+              <h3 class="info-section-title">Section 8: Student Agreement</h3>
+              <div class="info-grid-2">
+                <div class="info-item">
+                  <span class="info-label">Candidate Signature (Typed)</span>
+                  <span class="info-value" id="val-signature" style="font-family: 'Outfit', sans-serif; font-style: italic; color: var(--primary); font-size: 1.1rem;">-</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Date Signed</span>
+                  <span class="info-value" id="val-dateSigned">-</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Column 2: Document Checker -->
+          <div class="modal-files-col">
+            <h3 class="info-section-title">Uploaded Document Checker</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <!-- 1. Payment Screenshot -->
+              <div>
+                <span class="info-label" style="display: block; margin-bottom: 0.25rem;">1. Payment Screenshot (Compulsory)</span>
+                <a href="#" target="_blank" class="admin-file-link" id="file-link-payment">
+                  <span id="file-name-payment">No file uploaded</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square file-link-icon"></i>
+                </a>
+              </div>
+
+              <!-- 2. Marks Card -->
+              <div>
+                <span class="info-label" style="display: block; margin-bottom: 0.25rem;">2. Latest Marks Card (Compulsory)</span>
+                <a href="#" target="_blank" class="admin-file-link" id="file-link-marks">
+                  <span id="file-name-marks">No file uploaded</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square file-link-icon"></i>
+                </a>
+              </div>
+
+              <!-- 3. Student ID -->
+              <div>
+                <span class="info-label" style="display: block; margin-bottom: 0.25rem;">3. Student ID Card (Optional)</span>
+                <a href="#" target="_blank" class="admin-file-link" id="file-link-id">
+                  <span id="file-name-id">No file uploaded</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square file-link-icon"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- In-Modal Interactive Document Visualizer -->
+            <div class="visualizer-panel">
+              <span id="visualizer-placeholder" style="color: var(--text-muted); font-size: 0.85rem; padding: 1rem; text-align: center;">
+                <i class="fa-solid fa-eye" style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>
+                Select a document link above to preview file in-browser
+              </span>
+              <!-- Visualizer Frame for Images -->
+              <img id="visualizer-img" src="" alt="File Preview" style="display: none; width: 100%; height: 100%; object-fit: contain;">
+              <!-- Visualizer Frame for PDFs -->
+              <iframe id="visualizer-iframe" src="" style="display: none; width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Modal Footer (Status Action Operations) -->
+        <div class="modal-footer">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="info-label">Application Status:</span>
+            <span class="status-badge Pending" id="modal-status-badge">Pending</span>
+          </div>
+          
+          <div class="admin-action-btn-group">
+            <button type="button" class="btn-hold" id="btn-action-hold">
+              <i class="fa-solid fa-pause"></i> Hold
+            </button>
+            <button type="button" class="btn-reject" id="btn-action-reject">
+              <i class="fa-solid fa-times"></i> Reject
+            </button>
+            <button type="button" class="btn-approve" id="btn-action-approve">
+              <i class="fa-solid fa-check"></i> Approve
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="admin.js?v=2"></script>
+</body>
+</html>
