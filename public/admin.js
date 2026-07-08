@@ -183,11 +183,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const packageName = s.packageSelection.packageName || 'Basic';
       const feeStatus = s.paymentDetails.registrationFeeStatus || 'Not Yet Paid';
       const status = s.status || 'Pending';
-      const date = new Date(s.createdAt).toLocaleDateString('en-IN', {
+      const dateObj = new Date(s.createdAt);
+      const dateStr = dateObj.toLocaleDateString('en-IN', {
         day: '2-digit',
         month: 'short',
         year: '2-digit'
       });
+      const timeStr = dateObj.toLocaleTimeString('en-IN', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      const date = `${dateStr} ${timeStr}`;
 
       const initials = getInitials(name);
       const avatarBg = getAvatarBg(name);
@@ -303,8 +311,231 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reset Visualizer panel
     resetVisualizer();
 
+    // Toggle Print Receipt button visibility based on payment status
+    const btnPrint = document.getElementById('btn-action-print');
+    if (btnPrint) {
+      if (student.paymentDetails.registrationFeeStatus === 'Paid') {
+        btnPrint.style.display = 'inline-block';
+      } else {
+        btnPrint.style.display = 'none';
+      }
+    }
+
     // Show modal
     modalOverlay.classList.add('active');
+  }
+
+  // Helper function to print payment receipt
+  function printReceipt(student) {
+    const printWindow = window.open('', '_blank', 'width=800,height=900');
+    if (!printWindow) {
+      alert('Popup blocked! Please allow popups for this portal to print receipts.');
+      return;
+    }
+    
+    const dateObj = new Date(student.createdAt);
+    const dateStr = dateObj.toLocaleDateString('en-IN', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
+    const timeStr = dateObj.toLocaleTimeString('en-IN', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+
+    const receiptHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Receipt_${student.id}</title>
+        <style>
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+            line-height: 1.5;
+          }
+          .receipt-container {
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid #e0e2e0;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+          }
+          .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #0b57d0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+          }
+          .logo-section h2 {
+            color: #0b57d0;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+          }
+          .logo-section p {
+            margin: 4px 0 0 0;
+            font-size: 0.85rem;
+            color: #5f6368;
+          }
+          .status-paid {
+            background: #e6f4ea;
+            color: #137333;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border: 1px solid rgba(19, 115, 51, 0.2);
+            display: inline-block;
+          }
+          .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+          }
+          .details-col h4 {
+            margin: 0 0 10px 0;
+            color: #5f6368;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #e0e2e0;
+            padding-bottom: 4px;
+          }
+          .details-col p {
+            margin: 4px 0;
+            font-size: 0.9rem;
+          }
+          .details-col p strong {
+            color: #1c1b1f;
+          }
+          .item-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+          }
+          .item-table th {
+            background: #f8fafc;
+            text-align: left;
+            padding: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #5f6368;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e0e2e0;
+          }
+          .item-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #e0e2e0;
+            font-size: 0.9rem;
+          }
+          .total-section {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1c1b1f;
+            margin-top: 20px;
+          }
+          .footer {
+            margin-top: 60px;
+            border-top: 1px solid #e0e2e0;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5f6368;
+          }
+          @media print {
+            body {
+              padding: 0;
+            }
+            .receipt-container {
+              border: none;
+              box-shadow: none;
+              padding: 0;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="receipt-container">
+          <div class="header">
+            <div class="logo-section">
+              <h2>Coaching Portal</h2>
+              <p>Registration & Seat Reservation Receipt</p>
+            </div>
+            <div class="status-paid">Paid</div>
+          </div>
+
+          <div class="details-grid">
+            <div class="details-col">
+              <h4>Receipt Details</h4>
+              <p><strong>Receipt ID:</strong> REC-${student.id.split('-').slice(1).join('-')}</p>
+              <p><strong>Date & Time:</strong> ${dateStr}, ${timeStr}</p>
+              <p><strong>Registration ID:</strong> ${student.id}</p>
+            </div>
+            <div class="details-col">
+              <h4>Billed To</h4>
+              <p><strong>Name:</strong> ${student.studentDetails.fullName}</p>
+              <p><strong>USN:</strong> ${student.studentDetails.usn}</p>
+              <p><strong>College:</strong> ${student.studentDetails.collegeName}</p>
+              <p><strong>Email:</strong> ${student.studentDetails.email}</p>
+            </div>
+          </div>
+
+          <table class="item-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Transaction Reference</th>
+                <th style="text-align: right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Seat Reservation Fee</strong><br>
+                  <span style="font-size: 0.78rem; color: #5f6368;">6-Month Coaching Cohort (${student.packageSelection.packageName || 'GO - ₹14,999'})</span>
+                </td>
+                <td style="font-family: monospace;">
+                  ${student.paymentDetails.transactionId || 'N/A'}
+                </td>
+                <td style="text-align: right; font-weight: 600;">
+                  ₹${parseFloat(student.paymentDetails.amountPaid || 10000).toLocaleString('en-IN')}.00
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="total-section">
+            Total Paid: &nbsp; <span style="color: #0b57d0;">₹${parseFloat(student.paymentDetails.amountPaid || 10000).toLocaleString('en-IN')}.00</span>
+          </div>
+
+          <div class="footer">
+            <p>Thank you for your enrollment. We look forward to helping you master your subjects!</p>
+            <p style="color: #9aa0a6; margin-top: 10px;">This is a system-generated official payment confirmation and receipt.</p>
+          </div>
+        </div>
+        <script>
+          window.onload = function() {
+            window.print();
+          }
+        <\/script>
+      </body>
+      </html>
+    `;
+
+    printWindow.document.write(receiptHtml);
+    printWindow.document.close();
   }
 
   function setupFileLink(fileType, fileObject) {
@@ -430,6 +661,16 @@ document.addEventListener('DOMContentLoaded', () => {
   btnApprove.addEventListener('click', () => updateStudentStatus('Approved'));
   btnReject.addEventListener('click', () => updateStudentStatus('Rejected'));
   btnHold.addEventListener('click', () => updateStudentStatus('Hold'));
+
+  // Print receipt event listener
+  const btnPrintReceipt = document.getElementById('btn-action-print');
+  if (btnPrintReceipt) {
+    btnPrintReceipt.addEventListener('click', () => {
+      if (selectedStudent) {
+        printReceipt(selectedStudent);
+      }
+    });
+  }
 
   // --- Event Listeners for Filters & Controls ---
   searchInput.addEventListener('input', renderTable);

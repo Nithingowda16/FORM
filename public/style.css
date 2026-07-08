@@ -1471,3 +1471,21 @@ tr:hover td {
 tr:hover .avatar-circle {
   transform: scale(1.1);
 }
+
+.btn-print {
+  background: var(--secondary);
+  border: none;
+  color: white;
+  padding: 0.65rem 1.6rem;
+  border-radius: 100px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-title);
+  font-size: 0.88rem;
+  transition: var(--transition);
+}
+
+.btn-print:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 10px rgba(26, 115, 232, 0.2);
+}
